@@ -15,8 +15,9 @@ export const Group = ({groupData}) => {
     const [userName, setUserName] = useState('');
     const [userLastName, setUserLastName] = useState('');
     const [usersData, setUsersData] = useState([]);
-    const [error, setError] = useState('');
-    
+    const [nameError, setNameError] = useState('');
+    const [lastnameError, setLastnameError] = useState('');
+
     console.log(groupData);
     
     const handleOpenUserDialog = (e) => {
@@ -30,9 +31,9 @@ export const Group = ({groupData}) => {
         switch (name) {
             case 'name': {
                 if (/\d/.test(e.target.value)) {
-                    setError('name must contain only letters');
+                    setNameError('name must contain only letters');
                 } else {
-                    setError('');
+                    setNameError('');
                 }
                 setUserName(e.target.value);
                 break;
@@ -40,7 +41,9 @@ export const Group = ({groupData}) => {
 
             case 'lastName': {
                 if (/\d/.test(e.target.value)) {
-                    setError('name must contain only letters');
+                    setLastnameError('name must contain only letters');
+                } else {
+                    setLastnameError('');
                 }
                 setUserLastName(e.target.value);
                 break;
@@ -49,6 +52,7 @@ export const Group = ({groupData}) => {
     }
 
     const handleAddUserInfo = (e) => {
+        console.log(userName, userLastName,"aqqqq");
         setUsersData([...usersData, {
             name: userName,
             lastName: userLastName
@@ -73,11 +77,11 @@ export const Group = ({groupData}) => {
             {openUserDialog ? <Paper elevation={3}>
                 <Box>
                     <TextField onChange={(e) => (handleChange(e,'name'))} />
-                    <Typography>{error}</Typography>
+                    <Typography>{nameError}</Typography>
                     <TextField onChange={(e) => (handleChange(e,'lastName'))} />
-                    <Typography>{error}</Typography>
+                    <Typography>{lastnameError}</Typography>
                     <Button onClick={handleAddUserInfo}>
-                        Add User Info
+                        Save
                         <AddIcon />
                     </Button>
                 </Box>
